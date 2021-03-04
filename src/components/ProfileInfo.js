@@ -1,18 +1,33 @@
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Trip from "./Trip";
 import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button';
 
-function ProfileInfo({user}){
-    const {username,
-    image,
-    email,
-    bio, 
-    activity_Level,
-    food_preferances,
-    travel_style,
-    Favorate_trip} = user
+import Trip from "./Trip";
+import { useHistory } from "react-router-dom";
+
+
+function ProfileInfo({ currentUser }){
+    const {
+            username,
+            age,
+            realname,
+            image,
+            email,
+            bio, 
+            activity_Level,
+            food_preferances,
+            travel_style,
+            Favorate_trip
+            } = currentUser
+
+    const history = useHistory();
+
+    function handleEditClick() {
+        history.push("/editprofile")
+    };
+            
     return(
         <Container>
             <Row>
@@ -21,7 +36,9 @@ function ProfileInfo({user}){
                     {/* <img src= {image} alt={username} /> */}
                 </Col>
                 <Col sm={8}>
-                <h5>Name: {username}</h5>
+                <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button>
+                <h4>Name: {realname}, {age}</h4>
+                <h6>Username: {username}</h6>
                 <p>Bio: {bio} </p>
                 </Col>
                 <Col sm={12}>

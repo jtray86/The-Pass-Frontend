@@ -6,8 +6,8 @@ import ProfileInfo from "./ProfileInfo";
 // import data from "../data" 
 
 
-function Profile(){
-
+function Profile({ currentUser }){
+    console.log(currentUser);
     const data = [
     {
         id: 1,
@@ -28,28 +28,14 @@ function Profile(){
         image: "https://i.imgur.com/VTJB4qy.png"
     }]
 
-    const users =[
-        {
-            id: 1,
-            username: "Jtray86",
-            image:"https://www.telegraph.co.uk/content/dam/fashion/2019/02/07/GettyImages-824296158_trans_NvBQzQNjv4BqdsqbsZL_ZhuUNVNgtppgSVfvYIpE8WooDS_kmLGJk-A.jpg",
-            email: "jenniferetracy@gmail.com",
-            bio: "dkjbfiwbsdf dksjbfvisdbv ksdjbcskdbvco sdkc ksdbv h sdfk bskxb ikzj  kdbxik. kdsb cksd cvskd cvksk bc sv.",
-            activity_Level: "medium",
-            food_preferances: "Meat Eater",
-            travel_style: "sight seeing",
-            Favorate_trip: "ofodihpowdifhi oidbncijsbdciu ojdncjsbdivb sjdcoshdokn ojdsncosbdcvbsd isdjbciosbdo."
-
-        }
-    ]
-    const userInfo = users.map((user) => {
-        return(
-            <ProfileInfo 
-            key ={user.id}
-            user ={user}
-            />
-        )
-    })
+    // const userInfo = users.map((user) => {
+    //     return(
+    //         <ProfileInfo 
+    //         key ={user.id}
+    //         user ={user}
+    //         />
+    //     )
+    // })
 
     const tripData = data.map((data) => {
         console.log(data);
@@ -62,7 +48,7 @@ function Profile(){
             <Container>
                 <Row>
                     <Col md={{ span: 7, offset: 0 }}>       
-                         {userInfo} 
+                         <ProfileInfo currentUser={currentUser} />
                     </Col>
 
                     <Col md={{ span: 4, offset: 1 }}>
