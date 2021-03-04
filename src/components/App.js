@@ -9,23 +9,26 @@ import  Profile  from "./Profile";
 
 
 function App() {
+
+
   return (
     <div>
       <Header />
-    <Switch>
-      <Route path="/profile/:id">
-        <Profile />
-      </Route>
-      <Route path="/signup">
-        <Signup />
-      </Route>
-      <Route path="/trips">
-        <Trips />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+
+      <Switch>
+        <Route path="/profile/:id">
+          <Profile />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route path="/trips">
+          <Trips />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }
