@@ -12,7 +12,18 @@ import TripForm from './TripForm'
 
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    username: "",
+    age: "",
+    realname: "",
+    image: "",
+    email: "",
+    bio: "", 
+    activity_Level: "",
+    food_preferances: "",
+    travel_style: "",
+    Favorate_trip: ""
+  });
 
   console.log(currentUser);
 
@@ -21,6 +32,7 @@ function App() {
     // TODO: check if a user has already logged in (look for their token)
     // if they've already logged in, use that token to them in again
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token) {
       // request => GET /me
       // send the token with the request
@@ -31,6 +43,7 @@ function App() {
       })
         .then((r) => r.json())
         .then((user) => {
+          console.log(user);
           // response => setCurrentUser
           setCurrentUser(user);
         });
@@ -63,7 +76,7 @@ function App() {
 
   return (
     <div>
-      <Header setCurrentUser={setCurrentUser} />
+      <Header setCurrentUser={setCurrentUser} currentUser={currentUser} />
       <Switch>
         <Route exact path="/">
           <Home />

@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import {useState} from 'react'
 import Form from 'react-bootstrap/Form'
 
-function Header({setCurrentUser}){
+function Header({ setCurrentUser, currentUser }){
     
     const [show, setShow] = useState(false);
     const [loginInfo, setLoginInfo]= useState({username:"", password:""})
@@ -62,14 +62,34 @@ function Header({setCurrentUser}){
         localStorage.removeItem("token");
         history.push('/');
     }
+    
+    console.log(localStorage);
+    
+    console.log(currentUser);
+
+    const buttonLogic = 
+        currentUser ? (
+            <>
+                <Button variant="warning" onClick={handleLogout}>Logout</Button>
+                <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+            </>
+        ) : (
+            <>
+                <Button variant="danger" onClick={handleSignup}>Signup</Button>
+                <Button variant="success" onClick={handleShow}>Sign-in</Button>
+            </>
+        )
+    
+
+    console.log(buttonLogic);
 
     return(
     <Jumbotron>
         <h1>Hello, world!</h1>
             <p>
-                <Button variant="primary"onClick={handleSignup}>Signup</Button>
-                <Button variant="primary" onClick={handleShow}>Sign-in</Button>
-                <Button variant="primary" onClick={handleLogout}>Logout</Button>
+                {buttonLogic}
+
+                <Button variant="info" onClick={() => history.push("/")}>Home</Button>
                     <Modal
                         show={show}
                         onHide={handleClose}

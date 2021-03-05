@@ -28,19 +28,15 @@ function Profile({ currentUser }){
         image: "https://i.imgur.com/VTJB4qy.png"
     }]
 
-    // const userInfo = users.map((user) => {
-    //     return(
-    //         <ProfileInfo 
-    //         key ={user.id}
-    //         user ={user}
-    //         />
-    //     )
-    // })
-
     const tripData = data.map((data) => {
         console.log(data);
         return (
-            <Trip key={data.id} name={data.name} about={data.about} image={data.image}/>
+            <Trip 
+                key={data.id} 
+                name={data.name} 
+                about={data.about} 
+                image={data.image}
+            />
         )
     });
 
