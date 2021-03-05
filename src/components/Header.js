@@ -12,8 +12,8 @@ function Header({setCurrentUser}){
     const [errors, setErrors] = useState([]);
     const history = useHistory();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     function handleSignup(){
@@ -22,7 +22,7 @@ function Header({setCurrentUser}){
 
     function handleChange(e) {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
-      }
+    }
 
     function handleSubmit(e){
         
@@ -35,7 +35,6 @@ function Header({setCurrentUser}){
                     body: JSON.stringify(loginInfo),
                     })
                     .then((response) => {
-                        console.log(response)
                         if (response.ok) {
                         return response.json();
                         } else {
@@ -45,7 +44,6 @@ function Header({setCurrentUser}){
                         }
                     })
                     .then((data) => {
-                        console.log(data)
                         // set the user in state
                         setCurrentUser(data.user);
                         // save the token!
@@ -63,7 +61,8 @@ function Header({setCurrentUser}){
         setCurrentUser(null);
         localStorage.removeItem("token");
         history.push('/');
-      }
+    }
+
     return(
     <Jumbotron>
         <h1>Hello, world!</h1>
@@ -80,26 +79,27 @@ function Header({setCurrentUser}){
                         <Modal.Header closeButton>
                         <Modal.Title>Log-in</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
-                        <Form onSubmit={(e) => handleSubmit(e)}>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="username" name="username" placeholder="Enter Username" value={loginInfo.username} onChange ={(e) =>handleChange(e)}/>
-                            </Form.Group>
+                            <Modal.Body>
+                                <Form onSubmit={(e) => handleSubmit(e)}>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control type="username" name="username" placeholder="Enter Username" value={loginInfo.username} onChange ={(e) =>handleChange(e)}/>
+                                    </Form.Group>
 
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" placeholder="Password" value={loginInfo.password} onChange ={(e) =>handleChange(e)}/>
-                            </Form.Group>
-                            <Button variant="primary" type="submit">Log-in</Button>
-                         </Form>   
-                        </Modal.Body>
-                        <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        
-                        </Modal.Footer>
+                                    <Form.Group controlId="formBasicPassword">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" name="password" placeholder="Password" value={loginInfo.password} onChange ={(e) =>handleChange(e)}/>
+                                    </Form.Group>
+                                    {errors.map((error) => (
+                                        <p key={error} style={{ color: "red" }}>
+                                            {error}
+                                        </p>
+                                    ))}
+                                    <Modal.Footer>
+                                        <Button variant="primary" type="submit">Log-in</Button>                      
+                                    </Modal.Footer>
+                                </Form>   
+                            </Modal.Body>
                     </Modal> 
             </p>
     </Jumbotron>

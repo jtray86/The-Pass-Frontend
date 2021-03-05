@@ -75,13 +75,13 @@ function App() {
           <Profile currentUser={currentUser} />
         </Route>
         <Route path="/signup">
-          <Signup />
+          <Signup setCurrentUser={setCurrentUser} />
         </Route>
         <Route path="/trips">
           <Trips />
         </Route>
         <Route path="/editprofile">
-          <EditProfile currentUser={currentUser} />
+          <EditProfile currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
       </Switch>
     </div>
