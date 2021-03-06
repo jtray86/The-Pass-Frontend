@@ -12,14 +12,15 @@ function ProfileInfo({ currentUser }){
     const {
             username,
             age,
-            realname,
+            presentation,
+            name,
             image,
             email,
             bio, 
-            activity_Level,
+            activity_level,
             food_preferances,
             travel_style,
-            Favorate_trip
+            favorite_trip
             } = currentUser
 
     const history = useHistory();
@@ -37,15 +38,16 @@ function ProfileInfo({ currentUser }){
                 </Col>
                 <Col sm={8}>
                 <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button>
-                <h4>Name: {realname}, {age}</h4>
+                <h4>Name: {name}, {age}</h4>
+                <h5>Gender Presentation: {presentation}</h5>
                 <h6>Username: {username}</h6>
                 <p>Bio: {bio} </p>
                 </Col>
                 <Col sm={12}>
-                    <h5>Activity Level: {activity_Level}</h5>
+                    <h5>Activity Level: {activity_level}</h5>
                     <h5>Food Preferances: {food_preferances}</h5>
                     <h5>Travel Style: {travel_style}</h5>
-                    <p>Favorate Trip:  {Favorate_trip}</p>
+                    <p>Favorate Trip:  {favorite_trip}</p>
                     </Col>
                 <Col sm={12}>
                     <Trip />

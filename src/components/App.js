@@ -16,10 +16,10 @@ function App() {
     username: "",
     age: "",
     realname: "",
-    image: "",
+    image: "https://afmnoco.com/wp-content/uploads/2019/07/74046195_s.jpg",
     email: "",
     bio: "", 
-    activity_Level: "",
+    activity_level: "",
     food_preferances: "",
     travel_style: "",
     Favorate_trip: ""

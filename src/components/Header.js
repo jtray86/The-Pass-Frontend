@@ -25,7 +25,7 @@ function Header({ setCurrentUser, currentUser }){
     }
 
     function handleSubmit(e){
-        
+        console.log(loginInfo)
         e.preventDefault()
             fetch("http://localhost:3000/login", {
                     method: "POST",
@@ -35,6 +35,7 @@ function Header({ setCurrentUser, currentUser }){
                     body: JSON.stringify(loginInfo),
                     })
                     .then((response) => {
+                        console.log(response)
                         if (response.ok) {
                         return response.json();
                         } else {

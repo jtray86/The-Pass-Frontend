@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col'
 
 import { useHistory } from "react-router-dom";
 import { useState } from 'react'
@@ -11,6 +12,7 @@ function Signup({ setCurrentUser }){
         username: "",
         email: "",
         password: "",
+        presentation: ""
     });
     const [errors, setErrors] = useState([]);
     const history = useHistory();
@@ -93,6 +95,14 @@ function Signup({ setCurrentUser }){
                         value={password}
                         onChange={handleChange}  
                     />
+                </Form.Group>
+                <Form.Group controlId="formGridActivity">
+                    <Form.Label>Gender Presentation</Form.Label>
+                    <Form.Control as="select" defaultValue="Choose..." name="presentation" value={formData.presentation} onChange={(e) => handleChange(e)}>
+                        <option>Choose...</option>
+                        <option>Female</option>
+                        <option>Male</option>
+                    </Form.Control>
                 </Form.Group>
                     {/* {errors.map((error) => (
                         <p key={error} style={{ color: "red" }}>

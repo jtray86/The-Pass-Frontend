@@ -16,7 +16,7 @@ function EditProfile({ currentUser, setCurrentUser }) {
         image,
         email,
         bio, 
-        activity_Level,
+        activity_level,
         food_preferances,
         travel_style,
         favorite_trip
@@ -31,7 +31,7 @@ function EditProfile({ currentUser, setCurrentUser }) {
             image: image,
             email: email,
             bio: bio,
-            activity_Level: activity_Level,
+            activity_level: activity_level,
             food_preferances: food_preferances,
             travel_style: travel_style,
             favorite_trip: favorite_trip
@@ -45,27 +45,29 @@ function EditProfile({ currentUser, setCurrentUser }) {
     function handleProfileSubmit(e) {
         e.preventDefault();
         console.log(formData);
-        fetch("http://localhost:3000/me", {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        })
-        .then((response) => {
-            console.log(response);
-            if (response.ok) {
-            return response.json();
-            } else {
-            return response.json().then((data) => {
-                throw data;
-            });
+        const token = localStorage.getItem("token");
+            if (token) {
+            fetch("http://localhost:3000/me", {
+                method: "PATCH",
+                headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(formData),
+                })
+                .then((r) => r.json())
+                .then((user) => {
+                // response => update the user in state
+                setCurrentUser(user);
+                history.push(`/profile/${user.id}`);
+                });
             }
-        })
-        .then((data) => {
-            setCurrentUser(data.user);
-            history.push(`/profile/${data.id}`);
-        })
+        
+                // .then((data) => {
+                //     setCurrentUser(data.user);
+                //     history.push(`/profile/${data.id}`);
+                // })
+            
         // .catch((data) => {
         //     setErrors(data.errors);
         // });
@@ -110,11 +112,11 @@ function EditProfile({ currentUser, setCurrentUser }) {
                             
                             <Form.Group as={Col} controlId="formGridActivity">
                                 <Form.Label>Preferred Activity Level</Form.Label>
-                                <Form.Control as="select" defaultValue="Choose..." name="activity_level" value={formData.activity_Level} onChange={(e) => onFormChange(e)}>
+                                <Form.Control as="select" defaultValue="Choose..." name="activity_level" value={formData.activity_level} onChange={(e) => onFormChange(e)}>
                                     <option>Choose...</option>
-                                    <option>Low (Short walking tours, dining out, etc.)</option>
+                                    <option>Low</option>
                                     <option>Medium</option>
-                                    <option>High ()</option>
+                                    <option>High</option>
                                 </Form.Control>
                             </Form.Group>
 
