@@ -7,7 +7,6 @@ import ProfileInfo from "./ProfileInfo";
 
 
 function Profile({ currentUser }){
-    console.log(currentUser);
     const data = [
     {
         id: 1,
@@ -29,7 +28,6 @@ function Profile({ currentUser }){
     }]
 
     const tripData = data.map((data) => {
-        console.log(data);
         return (
             <Trip 
                 key={data.id} 

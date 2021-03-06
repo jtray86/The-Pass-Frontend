@@ -36,7 +36,6 @@ function Signup({ setCurrentUser }){
         body: JSON.stringify(formData),
         })
         .then((response) => {
-            console.log(response);
             if (response.ok) {
             return response.json();
             } else {
@@ -57,9 +56,6 @@ function Signup({ setCurrentUser }){
             setErrors(data.errors);
         });
     }
-
-    console.log(errors);
-    console.log(formData);
     
     const { username, email, password } = formData;
 

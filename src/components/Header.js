@@ -25,7 +25,6 @@ function Header({ setCurrentUser, currentUser }){
     }
 
     function handleSubmit(e){
-        console.log(loginInfo)
         e.preventDefault()
             fetch("http://localhost:3000/login", {
                     method: "POST",
@@ -35,7 +34,6 @@ function Header({ setCurrentUser, currentUser }){
                     body: JSON.stringify(loginInfo),
                     })
                     .then((response) => {
-                        console.log(response)
                         if (response.ok) {
                         return response.json();
                         } else {
@@ -63,11 +61,7 @@ function Header({ setCurrentUser, currentUser }){
         localStorage.removeItem("token");
         history.push('/');
     }
-    
-    console.log(localStorage);
-    
-    console.log(currentUser);
-
+        
     const buttonLogic = 
         currentUser ? (
             <>
@@ -82,7 +76,6 @@ function Header({ setCurrentUser, currentUser }){
         )
     
 
-    console.log(buttonLogic);
 
     return(
     <Jumbotron>

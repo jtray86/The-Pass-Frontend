@@ -49,6 +49,11 @@ function ProfileInfo({ currentUser }){
                     <h5>Travel Style: {travel_style}</h5>
                     <p>Favorate Trip:  {favorite_trip}</p>
                     </Col>
+            </Row>
+            <Row>
+                <Col sm={12}>
+                    <Button onClick={() => history.push("/tripForm")} variant="primary" style={{float: "right"}}>Add a Trip</Button>
+                </Col>
                 <Col sm={12}>
                     <Trip />
                 </Col>

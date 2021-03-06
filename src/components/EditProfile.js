@@ -40,11 +40,9 @@ function EditProfile({ currentUser, setCurrentUser }) {
 
     const history = useHistory();
 
-    console.log(formData);
 
     function handleProfileSubmit(e) {
         e.preventDefault();
-        console.log(formData);
         const token = localStorage.getItem("token");
             if (token) {
             fetch("http://localhost:3000/me", {
@@ -74,7 +72,6 @@ function EditProfile({ currentUser, setCurrentUser }) {
     }
 
     function onFormChange(e) {
-        console.log(e.target.value);
         const updatedForm = {...formData}
         updatedForm[e.target.name] = (e.target.value)
         
