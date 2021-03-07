@@ -18,7 +18,7 @@ function TripForm({ currentUser }){
         startDate: new Date(),
         endDate: null,
         key: 'selection'
-        }
+        }  
     ]);
     const [formData, setFormData] = useState(
         {

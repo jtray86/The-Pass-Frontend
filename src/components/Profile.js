@@ -1,52 +1,35 @@
+// path="/profile/:id"
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Trip from "./Trip";
+// import Trip from "./Trip";
 import ProfileInfo from "./ProfileInfo";
 // import data from "../data" 
+import ProfileCard from "./ProfileCard"
 
 
-function Profile({ currentUser }){
-    const data = [
-    {
-        id: 1,
-        name: "Yourseum",
-        about: "Find great art",
-        image: "https://i.imgur.com/yywQCoi.png"
-    },
-    {
-        id: 2,
-        name: "Spreddit",
-        about: "A Global Community of Like Minded Humans Socially Distancing ",
-        image: "https://i.imgur.com/cyZCpWs.png"
-    },
-    {
-        id: 3,
-        name: "snackATTACK",
-        about: "It's Time to Discover",
-        image: "https://i.imgur.com/VTJB4qy.png"
-    }]
+function Profile({ currentUser, tripsData, oppositePresentation }){
+    const userTrips = tripsData.find((trip) => trip.user.id === currentUser.id)
 
-    const tripData = data.map((data) => {
-        return (
-            <Trip 
-                key={data.id} 
-                name={data.name} 
-                about={data.about} 
-                image={data.image}
+    const otherUser = oppositePresentation.map((user) => {
+        return(
+            <ProfileCard
+                key = {user.id}
+                user={user}
             />
         )
-    });
+    })
 
     return (
             <Container>
                 <Row>
                     <Col md={{ span: 7, offset: 0 }}>       
-                         <ProfileInfo currentUser={currentUser} />
+                        <ProfileInfo currentUser={currentUser} userTrips={userTrips} />
                     </Col>
 
                     <Col md={{ span: 4, offset: 1 }}>
-                        {tripData}
+                        {otherUser}
                     </Col>
                 </Row>
             </Container>

@@ -1,4 +1,4 @@
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
 import '../App.css';
 import {Switch, Route} from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -9,6 +9,7 @@ import Trips  from "./Trips";
 import Profile  from "./Profile";
 import EditProfile from "./EditProfile"
 import TripForm from './TripForm'
+import TripShow from './TripShow'
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
     travel_style: "",
     Favorate_trip: ""
   });
+
+  const [oppositePresentation, setOppositePresentation] = useState([])
 
   // auto-login!
   useEffect(() => {
@@ -42,33 +45,95 @@ function App() {
         .then((user) => {
           // response => setCurrentUser
           setCurrentUser(user);
+          getOtherUsers()
         });
     }
   }, []);
+
+    const [tripsData, setTripsData] = useState([])
+
+  useEffect(() => {
+    // TODO: check if a user has already logged in (look for their token)
+    // if they've already logged in, use that token to them in again
+    const token = localStorage.getItem("token");
+    if (token) {
+      // request => GET /me
+      // send the token with the request
+      fetch("http://localhost:3000/trips", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((r) => r.json())
+        .then((trips) => {
+          setTripsData(trips);
+        });
+    }
+  }, []);
+
+  function getOtherUsers() {
+    const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
+    fetchothers(viewOthers)
+  }
+
+  function fetchothers(viewOthers){
+    const token = localStorage.getItem("token");
+    if (token) {
+      // request => GET /me
+      // send the token with the request
+      fetch(`http://localhost:3000/${viewOthers}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((r) => r.json())
+        .then((users) => {
+          setOppositePresentation(users)
+          
+        });
+    }
+  };
+
+  
+
+  // console.log(tripsData);
+
+
 
 
   return (
     <div>
       <Header setCurrentUser={setCurrentUser} currentUser={currentUser} />
       <Switch>
+
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/tripForm">
-          <TripForm currentUser={currentUser} />
-        </Route>
+
         <Route path="/profile/:id">
-          <Profile currentUser={currentUser} /> 
+          <Profile currentUser={currentUser} tripsData={tripsData} oppositePresentation={oppositePresentation} /> 
         </Route>
-        <Route path="/signup">
-          <Signup setCurrentUser={setCurrentUser} />
-        </Route>
-        <Route path="/trips">
-          <Trips />
-        </Route>
+
         <Route path="/editprofile">
           <EditProfile currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
+
+        <Route path="/signup">
+          <Signup setCurrentUser={setCurrentUser} />
+        </Route>
+
+        <Route path="/tripForm">
+          <TripForm currentUser={currentUser} />
+        </Route>
+
+        <Route path="/trips">
+          <Trips tripsData={tripsData} />
+        </Route>
+        
+        <Route path="/trip/:id">
+          <TripShow currentUser={currentUser} />
+        </Route>
+        
       </Switch>
     </div>
   );

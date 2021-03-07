@@ -8,7 +8,7 @@ import Trip from "./Trip";
 import { useHistory } from "react-router-dom";
 
 
-function ProfileInfo({ currentUser }){
+function ProfileInfo({ currentUser, userTrips }){
     const {
             username,
             age,
@@ -37,6 +37,7 @@ function ProfileInfo({ currentUser }){
                     {/* <img src= {image} alt={username} /> */}
                 </Col>
                 <Col sm={8}>
+                    {/* Add conditional logic for viewing other people's profiles */}
                 <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button>
                 <h4>Name: {name}, {age}</h4>
                 <h5>Gender Presentation: {presentation}</h5>
@@ -55,7 +56,7 @@ function ProfileInfo({ currentUser }){
                     <Button onClick={() => history.push("/tripForm")} variant="primary" style={{float: "right"}}>Add a Trip</Button>
                 </Col>
                 <Col sm={12}>
-                    <Trip />
+                    {/* <Trip /> */}
                 </Col>
             </Row>
         </Container>

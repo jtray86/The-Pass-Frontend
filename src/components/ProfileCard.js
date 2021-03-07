@@ -4,42 +4,41 @@ import CardColumns from 'react-bootstrap/CardColumns'
 
 import { useHistory } from "react-router-dom";
 
+function ProfileCard({ user }){
 
-function Trip({ trip }){
-    const history = useHistory();
-    
     const {
         id,
+        username,
+        age,
+        presentation,
         name,
-        city,
-        country,
-        start_date,
-        end_date,
-        description,
         image,
-        user_id
-        } = trip
+        email,
+        bio, 
+        activity_level,
+        food_preferances,
+        travel_style,
+        favorite_trip
+        } = user
+
+        const history = useHistory();
 
     return(
         <CardColumns>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={image} />
                 <Card.Body>
                     <img style={{ width: '4rem', float: 'right', border: 'solid .1px lightgray' }}src={image}/>
-                    <Card.Title >{name}</Card.Title>
-                    
+                    <Card.Title >{username}</Card.Title>
                     <Card.Text>
-                        {description}
+                        {bio}
                     </Card.Text>
                     {/* <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button> */}
-                    <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button>
+                    <Button onClick={() => history.push(`/profile/${id}`)} variant="primary">View Profile Details</Button>
                 </Card.Body>
             </Card>
         </CardColumns>
     )
+
 }
-export default Trip
 
-
-
-// https://afmnoco.com/wp-content/uploads/2019/07/74046195_s.jpg
+export default ProfileCard
