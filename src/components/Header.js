@@ -49,6 +49,7 @@ function Header({ setCurrentUser, currentUser }){
                         localStorage.setItem("token", data.token);
                         // redirect!
                         history.push(`/profile/${data.id}`);
+                        setLoginInfo({username:"", password:""})
                         handleClose()
                     })
                     .catch((data) => {
@@ -57,13 +58,24 @@ function Header({ setCurrentUser, currentUser }){
     }
 
     function handleLogout() {
-        setCurrentUser(null);
+        setCurrentUser({
+            username: "",
+            age: "",
+            realname: "",
+            image: "https://afmnoco.com/wp-content/uploads/2019/07/74046195_s.jpg",
+            email: "",
+            bio: "", 
+            activity_level: "",
+            food_preferances: "",
+            travel_style: "",
+            Favorate_trip: ""
+        });
         localStorage.removeItem("token");
         history.push('/');
     }
         
     const buttonLogic = 
-        currentUser ? (
+        currentUser.username.length > 0 ? (
             <>
                 <Button variant="warning" onClick={handleLogout}>Logout</Button>
                 <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>

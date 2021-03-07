@@ -2,7 +2,9 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+// import Row from 'react-bootstrap/Row'
+import Image from 'react-bootstrap/Image'
+
 
 
 import { useState } from 'react'
@@ -112,11 +114,24 @@ function TripForm({ currentUser }){
                             </div>
                         </Col>
 
-                        <Form.Group id="formGridCheckbox">
-                            <Form.File id="formcheck-api-regular">
+                        <Form.Group id="formGridImage">
+                            {/* <Form.File id="formcheck-api-regular">
                                 <Form.File.Label>Upload a Trip Avatar</Form.File.Label>
                                 <Form.File.Input name="image" onChange={(e) => onFormChange(e)} />
-                            </Form.File>
+                            </Form.File> */}
+                        <Form.Label>Add a Trip Image</Form.Label>
+                            <Col sm={2}>
+                                    <Image 
+                                        src= {
+                                            formData.image.length
+                                            ? formData.image
+                                            : "https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"
+                                        } 
+                                        alt={formData.name} 
+                                        thumbnail 
+                                    />
+                                </Col>
+                            <Form.Control name="image" placeholder="https://" value={formData.image} onChange={(e) => onFormChange(e)} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">

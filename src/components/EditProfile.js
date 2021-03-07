@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Image from 'react-bootstrap/Image'
 
 import { useState } from 'react'
 import { useHistory } from "react-router-dom";
@@ -56,6 +57,7 @@ function EditProfile({ currentUser, setCurrentUser }) {
                 .then((r) => r.json())
                 .then((user) => {
                 // response => update the user in state
+                console.log(user);
                 setCurrentUser(user);
                 history.push(`/profile/${user.id}`);
                 });
@@ -144,10 +146,35 @@ function EditProfile({ currentUser, setCurrentUser }) {
                         </Form.Row>
 
                         <Form.Group id="formGridCheckbox">
-                            <Form.File id="formcheck-api-regular">
-                            <Form.File.Label>Upload a Profile Picture</Form.File.Label>
+                            {/* <Form.File id="formcheck-api-regular">
+                            <Form.File.Label>Update Profile Picture</Form.File.Label>
+                                <Col sm={2}>
+                                    <Image 
+                                        src= {
+                                            image.length
+                                            ? image
+                                            : "https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"
+                                        } 
+                                        alt={username} 
+                                        thumbnail 
+                                    />
+                                </Col>
                             <Form.File.Input name="image" onChange={(e) => onFormChange(e)} />
-                            </Form.File>
+                            </Form.File> */}
+                            <Form.Label>Update your Profile Picture</Form.Label>
+                            <Col sm={2}>
+                                    <Image 
+                                        src= {
+                                            image.length
+                                            ? image
+                                            : "https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"
+                                        } 
+                                        alt={username} 
+                                        thumbnail 
+                                    />
+                                </Col>
+                            <Form.Control name="image" value={formData.image} onChange={(e) => onFormChange(e)} />
+
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
