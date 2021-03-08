@@ -16,19 +16,21 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     username: "",
     age: "",
-    realname: "",
+    name: "",
     image: "https://afmnoco.com/wp-content/uploads/2019/07/74046195_s.jpg",
     email: "",
     bio: "", 
     activity_level: "",
     food_preferances: "",
     travel_style: "",
-    Favorate_trip: ""
+    favorite_trip: "", 
+    presentation: ""
   });
 
-  const [oppositePresentation, setOppositePresentation] = useState([])
+  const [oppositePresentation, setOppositePresentation] = useState(null)
+  const [tripsData, setTripsData] = useState([])
 
-  // auto-login!
+  // auto-login
   useEffect(() => {
     // TODO: check if a user has already logged in (look for their token)
     // if they've already logged in, use that token to them in again
@@ -45,13 +47,11 @@ function App() {
         .then((user) => {
           // response => setCurrentUser
           setCurrentUser(user);
-          getOtherUsers()
-        });
+        })
     }
   }, []);
 
-    const [tripsData, setTripsData] = useState([])
-
+  //Fetching the trips data
   useEffect(() => {
     // TODO: check if a user has already logged in (look for their token)
     // if they've already logged in, use that token to them in again
@@ -71,12 +71,36 @@ function App() {
     }
   }, []);
 
-  function getOtherUsers() {
-    const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
-    fetchothers(viewOthers)
-  }
+  // //Fetch users of opposite gender presentation
+  // function getOtherUsers() {
+  //   console.log(currentUser);
+  //   const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
+  //   fetchothers(viewOthers)
+  // }
 
-  function fetchothers(viewOthers){
+  // function callGetOthersUseEffect(user) {
+  //   const viewOthers = user.presentation === "Female" ? "male" : "female"  
+  //   console.log(user);
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     // request => GET /me
+  //     // send the token with the request
+  //     fetch(`http://localhost:3000/${viewOthers}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then((r) => r.json())
+  //       .then((users) => {
+  //         setOppositePresentation(users)
+  //       });
+  //   }
+  // };
+
+  useEffect(() => {   
+    if (currentUser) {
+    const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
+    console.log(currentUser);
     const token = localStorage.getItem("token");
     if (token) {
       // request => GET /me
@@ -89,17 +113,10 @@ function App() {
         .then((r) => r.json())
         .then((users) => {
           setOppositePresentation(users)
-          
         });
     }
-  };
-
-  
-
-  // console.log(tripsData);
-
-
-
+    }
+}, [currentUser])
 
   return (
     <div>
@@ -127,7 +144,7 @@ function App() {
         </Route>
 
         <Route path="/trips">
-          <Trips tripsData={tripsData} />
+          <Trips tripsData={tripsData} currentUser={currentUser} />
         </Route>
         
         <Route path="/trip/:id">
