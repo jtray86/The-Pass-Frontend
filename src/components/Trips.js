@@ -1,21 +1,21 @@
 // import Card from 'react-bootstrap/Card'
 import Trip from "./Trip";
-// import CardDeck from 'react-bootstrap/CardDeck'
-// import data from "../data"
+import CardColumns from 'react-bootstrap/CardColumns'
 
-function Trips({ tripsData }){
+function Trips({ tripsData, currentUser }){
 
+    const showTrips = tripsData.filter((trip) => trip.user.presentation !== currentUser.presentation);
 
-    const tripCard = tripsData.map((trip) => {
+    const tripCard = showTrips.map((trip) => {
         return <Trip 
             key={trip.id} trip={trip}
         />
     });
 
     return(
-        <div id='cardContainer'>
+        <CardColumns id='cardContainer'>
             {tripCard}
-        </div>
+        </CardColumns>
     )
 }
 

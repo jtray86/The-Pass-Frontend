@@ -12,9 +12,9 @@ import TripForm from './TripForm';
 function TripShow() {
     const [trip, setTrip] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    // const history = useHistory();
     const params = useParams();
     const id = params.id;
+    const history = useHistory();
 
     useEffect(() => {
         fetch(`http://localhost:3000/trip/${id}`)
@@ -54,6 +54,12 @@ function TripShow() {
                     <h6>Start Date: {start_date} | End Date: {end_date}</h6>
                     <p>{description} </p>
                     <p>{user.id}</p>
+                </Col>
+                <Col sm={2}>
+                    <Image src={user.image} alt={user.name} thumbnail />
+                    {/* <img src= {image} alt={username} /> */}
+                    <p>{user.username}</p>
+                    <Button onClick={() => history.push(`/profile/${user.id}`)} variant="primary">View Profile Details</Button>
                 </Col>
             </Row>
         </Container>

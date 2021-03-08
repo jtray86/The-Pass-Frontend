@@ -3,12 +3,13 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button';
+import CardGroup from 'react-bootstrap/CardGroup'
 
 import Trip from "./Trip";
 import { useHistory } from "react-router-dom";
 
 
-function ProfileInfo({ currentUser, userTrips }){
+function ProfileInfo({ currentUser, displayUser, userProfileTrips }){
     const {
             username,
             age,
@@ -21,13 +22,19 @@ function ProfileInfo({ currentUser, userTrips }){
             food_preferances,
             travel_style,
             favorite_trip
-            } = currentUser
+            } = displayUser
 
     const history = useHistory();
 
     function handleEditClick() {
         history.push("/editprofile")
     };
+
+    const userTripsCards = userProfileTrips.map((trip) => {
+        return (
+        <Trip key={trip.id} trip={trip} />
+        )
+    });
             
     return(
         <Container>
@@ -38,7 +45,8 @@ function ProfileInfo({ currentUser, userTrips }){
                 </Col>
                 <Col sm={8}>
                     {/* Add conditional logic for viewing other people's profiles */}
-                <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button>
+                    { displayUser.username === currentUser.username ? <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button> : null}
+                
                 <h4>Name: {name}, {age}</h4>
                 <h5>Gender Presentation: {presentation}</h5>
                 <h6>Username: {username}</h6>
@@ -55,8 +63,13 @@ function ProfileInfo({ currentUser, userTrips }){
                 <Col sm={12}>
                     <Button onClick={() => history.push("/tripForm")} variant="primary" style={{float: "right"}}>Add a Trip</Button>
                 </Col>
-                <Col sm={12}>
-                    {/* <Trip /> */}
+                <Container>
+
+                </Container>
+                <Col sm={12} style={{ "padding-top": "15px" }}>
+                    <CardGroup>
+                    {userTripsCards}
+                    </ CardGroup>
                 </Col>
             </Row>
         </Container>

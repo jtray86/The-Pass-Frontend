@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import {useState} from 'react'
 import Form from 'react-bootstrap/Form'
 
-function Header({ setCurrentUser, currentUser }){
+function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     
     const [show, setShow] = useState(false);
     const [loginInfo, setLoginInfo]= useState({username:"", password:""})
@@ -24,6 +24,7 @@ function Header({ setCurrentUser, currentUser }){
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
     }
 
+// Login functionality
     function handleSubmit(e){
         e.preventDefault()
             fetch("http://localhost:3000/login", {
@@ -48,13 +49,14 @@ function Header({ setCurrentUser, currentUser }){
                         // save the token!
                         localStorage.setItem("token", data.token);
                         // redirect!
-                        history.push(`/profile/${data.id}`);
-                        setLoginInfo({username:"", password:""})
-                        handleClose()
+                        history.push(`/profile/${data.user.id}`);
+                        setLoginInfo({username:"", password:""});
+                        handleClose();
+                        // callGetOthersUseEffect(data.user);
                     })
                     .catch((data) => {
                         setErrors(data.errors);
-            });
+                    });
     }
 
     function handleLogout() {
@@ -79,6 +81,7 @@ function Header({ setCurrentUser, currentUser }){
             <>
                 <Button variant="warning" onClick={handleLogout}>Logout</Button>
                 <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+                <Button variant="success" onClick={() => history.push(`/trips`)}>Trips</Button>
             </>
         ) : (
             <>
