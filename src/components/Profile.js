@@ -18,7 +18,6 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
     const [displayUser, setDisplayUser] = useState(currentUser)
 
     const otherUser = oppositePresentation !== null ? oppositePresentation.map((user) => {
-        console.log("cards")
         return(
             <ProfileCard
                 key = {user.id}
@@ -32,7 +31,6 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
             fetch(`http://localhost:3000/user/${paramsId}`)
             .then((r) => r.json())
             .then((user) => {
-                console.log(user);
                 setDisplayUser(user);
             })
         } else {

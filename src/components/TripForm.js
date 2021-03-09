@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DateRange, DateRangePicker, Calendar, DefinedRange } from 'react-date-range';
 
-function TripForm({ currentUser }){
+function TripForm({ currentUser, handleNewTrip }){
     const history = useHistory();    
     const [dateRange, setDateRange] = useState([
         {
@@ -32,11 +32,6 @@ function TripForm({ currentUser }){
             user_id: currentUser.id
         }
     )
-
-    // console.log(formData);
-
-    // console.log(dateRange[0].startDate);
-    // console.log(dateRange[0].endDate);
     
 
     function onFormChange(e) {
@@ -45,20 +40,15 @@ function TripForm({ currentUser }){
         
         setFormData(updatedForm)
     }
-
+    
     function onSubmitClick(e) {
         e.preventDefault();
+
         const updateForm = {...formData}
         updateForm.start_date = (dateRange[0].startDate)
         updateForm.end_date = (dateRange[0].endDate)
         
         setFormData(updateForm)
-        
-        handleTripSubmit();
-    }
-
-    function handleTripSubmit() {
-        console.log(formData);
         const token = localStorage.getItem("token");
             if (token) {
             fetch("http://localhost:3000/newtrip", {
@@ -67,12 +57,22 @@ function TripForm({ currentUser }){
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(updateForm),
                 })
                 .then((r) => r.json())
                 .then((trip) => {
-                console.log(trip);
-                // history.push(`/profile/${user.id}`); <-- should go to trips#show page for new trip
+                handleNewTrip(trip);
+                history.push(`/trip/${trip.id}`);
+                setFormData({
+                    name: "",
+                    city: "",
+                    country: "",
+                    start_date: "",
+                    end_date: "",
+                    description: "",
+                    image: "",
+                    user_id: currentUser.id
+                })
                 });
             }
     }
@@ -80,7 +80,7 @@ function TripForm({ currentUser }){
     return(
         <Container>
                 <h1>Add a New Trip</h1>
-                <Form onSubmit={onSubmitClick}>
+                <Form onSubmit={onSubmitClick} >
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridName">
                                 <Form.Label>Name</Form.Label>

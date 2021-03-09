@@ -71,36 +71,10 @@ function App() {
     }
   }, []);
 
-  // //Fetch users of opposite gender presentation
-  // function getOtherUsers() {
-  //   console.log(currentUser);
-  //   const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
-  //   fetchothers(viewOthers)
-  // }
-
-  // function callGetOthersUseEffect(user) {
-  //   const viewOthers = user.presentation === "Female" ? "male" : "female"  
-  //   console.log(user);
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     // request => GET /me
-  //     // send the token with the request
-  //     fetch(`http://localhost:3000/${viewOthers}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //       .then((r) => r.json())
-  //       .then((users) => {
-  //         setOppositePresentation(users)
-  //       });
-  //   }
-  // };
-
+// fetching other users
   useEffect(() => {   
     if (currentUser) {
     const viewOthers = currentUser.presentation === "Female" ? "male" : "female"  
-    console.log(currentUser);
     const token = localStorage.getItem("token");
     if (token) {
       // request => GET /me
@@ -117,6 +91,16 @@ function App() {
     }
     }
 }, [currentUser])
+
+  function handleTripDelete(id) {
+    const newTripsArr = tripsData.filter((trip) => trip.id !== id)
+    setTripsData(newTripsArr)
+  }
+
+  function handleNewTrip(trip) {
+    console.log(trip);
+    setTripsData([...tripsData, trip])
+  }
 
   return (
     <div>
@@ -140,7 +124,7 @@ function App() {
         </Route>
 
         <Route path="/tripForm">
-          <TripForm currentUser={currentUser} />
+          <TripForm currentUser={currentUser} handleNewTrip={handleNewTrip} />
         </Route>
 
         <Route path="/trips">
@@ -148,7 +132,7 @@ function App() {
         </Route>
         
         <Route path="/trip/:id">
-          <TripShow currentUser={currentUser} />
+          <TripShow handleTripDelete={handleTripDelete} currentUser={currentUser} />
         </Route>
         
       </Switch>

@@ -57,7 +57,6 @@ function EditProfile({ currentUser, setCurrentUser }) {
                 .then((r) => r.json())
                 .then((user) => {
                 // response => update the user in state
-                console.log(user);
                 setCurrentUser(user);
                 history.push(`/profile/${user.id}`);
                 });
