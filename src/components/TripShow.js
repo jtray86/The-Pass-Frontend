@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import TripForm from './TripForm';
 
 
-function TripShow({ handleTripDelete }) {
+function TripShow({ handleTripDelete, currentUser }) {
     const [trip, setTrip] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const params = useParams();
@@ -39,6 +39,16 @@ function TripShow({ handleTripDelete }) {
         history.push(`/profile/${user.id}`);
     }
 
+    function handleMatchClick(e) {
+        console.log(e);
+        
+        fetch(`http://localhost:3000/match/${currentUser.id}/${trip.user.id}`)
+        .then((r) => r.json())
+        .then((response) => {
+            console.log(response)
+        });
+    }
+
     return(
         <Container>
             <Row>
@@ -55,6 +65,7 @@ function TripShow({ handleTripDelete }) {
                     <h5> {city}, {country} </h5>
                     <h6>Start Date: {start_date} | End Date: {end_date}</h6>
                     <p>Trip Description: {description} </p>
+                    <Button onClick={handleMatchClick} variant="info">Request to Join Trip!</Button>
                 </Col>
                 <Col sm={2}>
                     <Image src={user.image} alt={user.name} thumbnail />
