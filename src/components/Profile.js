@@ -17,14 +17,17 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
     const paramsId = params.id;
     const [displayUser, setDisplayUser] = useState(currentUser)
 
-    const otherUser = oppositePresentation !== null ? oppositePresentation.map((user) => {
+    const otherUsers = oppositePresentation !== null ? oppositePresentation.filter((user) => currentUser.travel_style === user.travel_style || currentUser.activity_level === user.activity_level) : null;
+
+
+    const otherUserCard = otherUsers.map((user) => {
         return(
             <ProfileCard
                 key = {user.id}
                 user={user}
             />
         )
-    }) : null
+        });
 
     useEffect(() => {
         if (displayUser.id !== paramsId) {
@@ -48,7 +51,8 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
                     </Col>
 
                     <Col md={{ span: 4, offset: 1 }}>
-                            {otherUser}
+                        <h3 style={{ "text-align": "center"}}>Users Who Share <br/> Your Interests</h3>
+                        {otherUserCard}
                     </Col>
                 </Row>
             </Container>

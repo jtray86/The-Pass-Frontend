@@ -135,7 +135,6 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
                             <Button onClick={handleMatchClick} variant="info">Request to Join Trip!</Button>
                     }
                 
-                    
                         <Modal
                         show={show}
                         onHide={handleClose}

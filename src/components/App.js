@@ -102,8 +102,9 @@ function App() {
     setTripsData([...tripsData, trip])
   }
 
-  function handleTravlerAdd(trip) {
-    console.log(trip);
+  function handleTravlerAdd(updatedTrip) {
+    const newTripsArr = tripsData.filter((trip) => trip.id !== updatedTrip.id)
+    setTripsData([...newTripsArr, updatedTrip])
   }
 
   return (

@@ -31,7 +31,7 @@ function Trip({ trip }){
                     <Card.Text>
                         {description}
                     </Card.Text>
-                        <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button>
+                        <Button onClick={() => history.push(`/trip/${id}`)} variant="info">View Full Trip Details</Button>
                 </Card.Body>
             </Card>
     

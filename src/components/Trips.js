@@ -5,8 +5,8 @@ import CardColumns from 'react-bootstrap/CardColumns'
 function Trips({ tripsData, currentUser }){
 
     const showTrips = tripsData.filter((trip) => trip.owner.presentation !== currentUser.presentation);
-
-    const tripCard = showTrips.map((trip) => {
+    const availableTrips = showTrips.filter((trip) => trip.traveler === null)
+    const tripCard = availableTrips.map((trip) => {
         return <Trip 
             key={trip.id} trip={trip}
         />

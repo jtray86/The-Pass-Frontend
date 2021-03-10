@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
-import logo from '../ThePassLogo-transparent.png';
+import logo from '../assets/ThePassLogo-transparent.png';
 
 function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     
@@ -80,10 +80,10 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     const buttonLogic = 
         // console.log(currentUser.username.length)
         currentUser.username.length > 0 ? (
-            <div style={{ float: "right"}}>
-                <Button style={{ margin: "2px"}} variant="secondary" onClick={handleLogout}>Logout</Button>
-                <Button style={{ margin: "2px"}} variant="secondary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
-                <Button style={{ margin: "2px"}} variant="secondary" onClick={() => history.push(`/trips`)}>Trips</Button>
+            <div>
+                <Button style={{ margin: "2px", float: "right"}} variant="outline-info" onClick={handleLogout}>Logout</Button>
+                <Button style={{ margin: "2px", float: "right"}} variant="outline-info" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+                <Button style={{ "margin-left": "60px", float: "left", background: "lightgrey"}} size="lg" variant="outline-info" onClick={() => history.push(`/trips`)}>View All Trips</Button>
             </div>
         ) : (
             <div style={{ float: "right"}} >
