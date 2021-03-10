@@ -164,7 +164,7 @@ function EditProfile({ currentUser, setCurrentUser }) {
                             <Col sm={2}>
                                     <Image 
                                         src= {
-                                            image.length
+                                            image !== null
                                             ? image
                                             : "https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"
                                         } 

@@ -7,9 +7,13 @@ import Button from 'react-bootstrap/Button';
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TripForm from './TripForm';
+import emailjs from 'emailjs-com';
+import{ init } from 'emailjs-com';
+
 
 
 function TripShow({ handleTripDelete, currentUser }) {
+    init("user_7xvBpH1XrMDI9gnM2D2P0");
     const [trip, setTrip] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const params = useParams();
@@ -29,8 +33,6 @@ function TripShow({ handleTripDelete, currentUser }) {
 
     const { name, city, country, start_date, end_date, description, image, user} = trip
 
-
-
     function handleDeleteClick(e) {
         console.log(e);
         fetch(`http://localhost:3000/trip/${id}`, { method: "DELETE" })
@@ -41,12 +43,25 @@ function TripShow({ handleTripDelete, currentUser }) {
 
     function handleMatchClick(e) {
         console.log(e);
-        
-        fetch(`http://localhost:3000/match/${currentUser.id}/${trip.user.id}`)
-        .then((r) => r.json())
-        .then((response) => {
-            console.log(response)
-        });
+        // fetch(`http://localhost:3000/match/${currentUser.id}/${trip.user.id}`)
+        // .then((r) => console.log())
+        // .then((data) => {
+        //     console.log(data)
+        // });
+        const templateParams = {
+            to_name: user.name,
+            from_name: currentUser.name,
+            from_email: currentUser.email,
+            from_id: currentUser.id,
+            to_email: user.email,
+            trip_name: name };
+
+        emailjs.send('service_wasxyvd', 'template_8ov3cts', templateParams)
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+            console.log('FAILED...', error);
+            });
     }
 
     return(

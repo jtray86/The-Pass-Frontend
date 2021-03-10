@@ -50,7 +50,7 @@ function Signup({ setCurrentUser }){
             // save the token!
             localStorage.setItem("token", data.token);
             // redirect
-            history.push(`/profile/${data.id}`);
+            history.push(`/profile/${data.user.id}`);
         })
         .catch((data) => {
             setErrors(data.errors);
