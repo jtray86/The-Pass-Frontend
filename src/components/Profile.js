@@ -12,7 +12,6 @@ import { useState, useEffect } from 'react'
 
 
 function Profile({ currentUser, tripsData, oppositePresentation }){
-    const userTrips = tripsData.find((trip) => trip.owner.id === currentUser.id)
     const params = useParams();
     const paramsId = params.id;
     const [displayUser, setDisplayUser] = useState(currentUser)
@@ -20,14 +19,14 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
     const otherUsers = oppositePresentation !== null ? oppositePresentation.filter((user) => currentUser.travel_style === user.travel_style || currentUser.activity_level === user.activity_level) : null;
 
 
-    const otherUserCard = otherUsers.map((user) => {
+    const otherUserCard = otherUsers !== null ? otherUsers.map((user) => {
         return(
             <ProfileCard
                 key = {user.id}
                 user={user}
             />
         )
-        });
+        }) : null
 
     useEffect(() => {
         if (displayUser.id !== paramsId) {

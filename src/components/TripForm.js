@@ -29,7 +29,7 @@ function TripForm({ currentUser, handleNewTrip }){
             end_date: "",
             description: "",
             image: "",
-            user_id: currentUser.id
+            owner_id: currentUser.id
         }
     )
     
@@ -71,7 +71,7 @@ function TripForm({ currentUser, handleNewTrip }){
                     end_date: "",
                     description: "",
                     image: "",
-                    user_id: currentUser.id
+                    owner_id: currentUser.id
                 })
                 });
             }

@@ -54,13 +54,7 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
         history.push(`/profile/${owner.id}`);
     }
 
-    function handleMatchClick(e) {
-        console.log(e);
-        // fetch(`http://localhost:3000/match/${currentowner.id}/${trip.owner.id}`)
-        // .then((r) => console.log())
-        // .then((data) => {
-        //     console.log(data)
-        // });
+    function handleMatchClick() {
         const templateParams = {
             to_name: owner.name,
             from_name: currentUser.name,
@@ -70,6 +64,22 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
             trip_name: name };
 
         emailjs.send('service_wasxyvd', 'template_8ov3cts', templateParams)
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+            console.log('FAILED...', error);
+            });
+    }
+
+    function notifyNewTraveler(trip) {
+        const templateParams = {
+            to_name: trip.traveler.name,
+            to_email: trip.traveler.email,
+            from_name: trip.owner.name,
+            from_email: trip.owner.email,
+            trip_name: trip.name };
+
+            emailjs.send('service_wasxyvd', 'template_9wyx1lb', templateParams)
             .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
             }, function(error) {
@@ -100,6 +110,7 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
                 handleTravlerAdd(trip);
                 setTrip(trip);
                 handleClose();
+                notifyNewTraveler(trip);
                 });
             }
 
@@ -120,9 +131,8 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
                 </Col>
 
                 <Col sm={8}>
-                    {/* Add conditional logic for viewing other people's profiles */}
-                <Button onClick={() => history.push(`/tripsForm`)} variant="primary" style={{float: "right"}}>Edit Trip</Button>
-                <Button onClick={handleDeleteClick} variant="warning" style={{float: "right"}}>Delete Trip</Button>
+                    { currentUser.id === owner.id ? <Button onClick={handleDeleteClick} variant="info" style={{float: "right"}}>Delete Trip</Button> : null
+                    }
                     <h4>{name}</h4>
                     <h5> {city}, {country} </h5>
                     <h6>Start Date: {start_date} | End Date: {end_date}</h6>
@@ -163,11 +173,12 @@ function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleT
                                 </Modal.Body>
                         </Modal>
                 </Col>
-                <Col sm={2}>
+                <Col sm={9}></Col>
+                <Col sm={3} style={{"text-align": "center"}}>
                     <Image src={owner.image} alt={owner.name} thumbnail />
                     {/* <img src= {image} alt={ownername} /> */}
-                    <p>{owner.username}</p>
-                    <Button onClick={() => history.push(`/profile/${owner.id}`)} variant="primary">View Profile</Button>
+                    <header style={{"font-size": "xlarge"}}>{owner.name} | {owner.username}</header>
+                    <Button onClick={() => history.push(`/profile/${owner.id}`)} variant="info">View Profile</Button>
                 </Col>
             </Row>
         </Container>

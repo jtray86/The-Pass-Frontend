@@ -65,7 +65,10 @@ function ProfileInfo({ currentUser, displayUser, userProfileTrips }){
             </Row>
             <Row>
                 <Col sm={12}>
-                    <Button onClick={() => history.push("/tripForm")} variant="info" style={{float: "right"}}>Add a Trip</Button>
+                    <p><hr /></p>
+                    {
+                        displayUser.username === currentUser.username ? <Button onClick={() => history.push("/tripForm")} variant="info" style={{float: "right"}}>Add a Trip</Button> : null
+                    }   
                 </Col>
                 <Container>
 
