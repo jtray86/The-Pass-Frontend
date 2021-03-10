@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 
 
 function Profile({ currentUser, tripsData, oppositePresentation }){
-    const userTrips = tripsData.find((trip) => trip.user.id === currentUser.id)
+    const userTrips = tripsData.find((trip) => trip.owner.id === currentUser.id)
     const params = useParams();
     const paramsId = params.id;
     const [displayUser, setDisplayUser] = useState(currentUser)
@@ -38,7 +38,7 @@ function Profile({ currentUser, tripsData, oppositePresentation }){
         }
     },[paramsId]);
 
-    const userProfileTrips = tripsData.filter((trip) => trip.user.id === currentUser.id)
+    const userProfileTrips = tripsData.filter((trip) => trip.owner.id === displayUser.id)
     
     return (
             <Container>

@@ -102,6 +102,10 @@ function App() {
     setTripsData([...tripsData, trip])
   }
 
+  function handleTravlerAdd(trip) {
+    console.log(trip);
+  }
+
   return (
     <div>
       <Header setCurrentUser={setCurrentUser} currentUser={currentUser} />
@@ -132,7 +136,7 @@ function App() {
         </Route>
         
         <Route path="/trip/:id">
-          <TripShow handleTripDelete={handleTripDelete} currentUser={currentUser} />
+          <TripShow handleTripDelete={handleTripDelete} currentUser={currentUser} oppositePresentation={oppositePresentation} handleTravlerAdd={handleTravlerAdd} />
         </Route>
         
       </Switch>

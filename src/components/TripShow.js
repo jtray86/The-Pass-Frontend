@@ -4,34 +4,47 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form'
+
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import TripForm from './TripForm';
+// import TripForm from './TripForm';
 import emailjs from 'emailjs-com';
 import{ init } from 'emailjs-com';
 
 
 
-function TripShow({ handleTripDelete, currentUser }) {
+
+
+function TripShow({ handleTripDelete, currentUser, oppositePresentation, handleTravlerAdd }) {
     init("user_7xvBpH1XrMDI9gnM2D2P0");
     const [trip, setTrip] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const params = useParams();
-    const id = params.id;
+    const tripId = params.id;
     const history = useHistory();
+    const [show, setShow] = useState(false);
+    const [traveler, setTraveler]= useState({username:""})
+    const [errors, setErrors] = useState([]);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
 
     useEffect(() => {
-        fetch(`http://localhost:3000/trip/${id}`)
+        fetch(`http://localhost:3000/trip/${tripId}`)
         .then((r) => r.json())
         .then((trip) => {
             setTrip(trip);
             setIsLoaded(true);
         });
-    }, [id]);
+    }, [tripId]);
 
     if (!isLoaded) return <h2>Loading...</h2>;
 
-    const { name, city, country, start_date, end_date, description, image, owner} = trip
+    const { id, name, city, country, start_date, end_date, description, image, owner} = trip
 
     function handleDeleteClick(e) {
         console.log(e);
@@ -64,6 +77,40 @@ function TripShow({ handleTripDelete, currentUser }) {
             });
     }
 
+
+    function handleAddSubmit(e) {
+        e.preventDefault();
+
+        const addTraveler = oppositePresentation.filter((person) => person.username === traveler.username)
+        console.log(addTraveler);
+
+        const token = localStorage.getItem("token");
+            if (token) {
+            fetch(`http://localhost:3000/trip/${id}`, {
+                method: "PATCH",
+                headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({addTraveler}),
+                })
+                .then((r) => r.json())
+                .then((trip) => {
+                console.log(trip);
+                handleTravlerAdd(trip);
+                setTrip(trip);
+                handleClose();
+                });
+            }
+
+    }
+
+    function handleChange(e) {
+        const addedTraveler = {...traveler} 
+        addedTraveler[e.target.name] = e.target.value
+        setTraveler(addedTraveler)
+    }
+
     return(
         <Container>
             <Row>
@@ -80,7 +127,42 @@ function TripShow({ handleTripDelete, currentUser }) {
                     <h5> {city}, {country} </h5>
                     <h6>Start Date: {start_date} | End Date: {end_date}</h6>
                     <p>Trip Description: {description} </p>
-                    <Button onClick={handleMatchClick} variant="info">Request to Join Trip!</Button>
+                    {
+                        trip.traveler ?  
+                        <p>🎉 {trip.traveler.username} has joined the trip! 🎉</p> 
+                            : owner.id === currentUser.id ? 
+                            <Button onClick ={handleShow} variant="info">Add a User to Your Trip</Button> :
+                            <Button onClick={handleMatchClick} variant="info">Request to Join Trip!</Button>
+                    }
+                
+                    
+                        <Modal
+                        show={show}
+                        onHide={handleClose}
+                        backdrop="static"
+                        keyboard={false}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Log-in</Modal.Title>
+                            </Modal.Header>
+                                <Modal.Body>
+                                    <Form onSubmit={(e) => handleAddSubmit(e)}>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Travel Partner Username:</Form.Label>
+                                            <Form.Control type="username" name="username" placeholder="Enter Username" value={traveler.username} onChange ={(e) =>handleChange(e)}/>
+                                        </Form.Group>
+                                    {errors.map((error) => (
+                                    <p key={error} style={{ color: "red" }}>
+                                        {error}
+                                    </p>
+                                    ))}
+
+                                    <Modal.Footer>
+                                        <Button variant="info" type="submit">Add User</Button>                      
+                                    </Modal.Footer>
+                                    </Form>   
+                                </Modal.Body>
+                        </Modal>
                 </Col>
                 <Col sm={2}>
                     <Image src={owner.image} alt={owner.name} thumbnail />

@@ -77,19 +77,20 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
         history.push('/');
     }
         
-    // const buttonLogic = 
-    //     currentUser.username.length > 0 ? (
-    //         <style={{ float: "right" }}>
-    //             <Button variant="warning" onClick={handleLogout}>Logout</Button>
-    //             <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
-    //             <Button variant="success" onClick={() => history.push(`/trips`)}>Trips</Button>
-    //         </>
-    //     ) : (
-    //         <>
-    //             <Button variant="danger" onClick={handleSignup}>Signup</Button>
-    //             <Button variant="success" onClick={handleShow}>Sign-in</Button>
-    //         </>
-    //     )
+    const buttonLogic = 
+        // console.log(currentUser.username.length)
+        currentUser.username.length > 0 ? (
+            <div style={{ float: "right"}}>
+                <Button style={{ margin: "2px"}} variant="secondary" onClick={handleLogout}>Logout</Button>
+                <Button style={{ margin: "2px"}} variant="secondary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+                <Button style={{ margin: "2px"}} variant="secondary" onClick={() => history.push(`/trips`)}>Trips</Button>
+            </div>
+        ) : (
+            <div style={{ float: "right"}} >
+                <Button style={{ margin: "2px"}} variant="secondary" onClick={handleSignup}>Signup</Button>
+                <Button style={{ margin: "2px"}} variant="secondary" onClick={handleShow}>Sign-in</Button>
+            </div>
+        )
     
 
 
@@ -97,13 +98,7 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     <Jumbotron style={{ "background-image": "linear-gradient(white, powderblue)", "box-shadow": "0 5px 5px -2px lightgrey" }}>
         <img src={logo} alt="ThePassLogo"/>
             <p>
-                <Button style={{ float: "right", background: "pink" }} variant="warning" onClick={handleLogout}>Logout</Button>
-                <Button style={{ float: "right" }} variant="light" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
-                <Button style={{ float: "right" }} variant="secondary" onClick={() => history.push(`/trips`)}>Trips</Button>
-                {/* <Button variant="danger" onClick={handleSignup}>Signup</Button>
-                <br />
-                <Button variant="success" onClick={handleShow}>Sign-in</Button>
-                <Button variant="info" onClick={() => history.push("/")}>Home</Button> */}
+                {buttonLogic}
                     <Modal
                         show={show}
                         onHide={handleClose}

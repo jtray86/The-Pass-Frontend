@@ -4,7 +4,7 @@ import CardColumns from 'react-bootstrap/CardColumns'
 
 function Trips({ tripsData, currentUser }){
 
-    const showTrips = tripsData.filter((trip) => trip.user.presentation !== currentUser.presentation);
+    const showTrips = tripsData.filter((trip) => trip.owner.presentation !== currentUser.presentation);
 
     const tripCard = showTrips.map((trip) => {
         return <Trip 

@@ -1,6 +1,7 @@
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
 
+
 import { useHistory } from "react-router-dom";
 
 
@@ -16,7 +17,7 @@ function Trip({ trip }){
         end_date,
         description,
         image,
-        user
+        owner
         } = trip
 
     return(
@@ -24,14 +25,13 @@ function Trip({ trip }){
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={image} />
                 <Card.Body>
-                    <img style={{ width: '4rem', float: 'right', border: 'solid .1px lightgray' }} src={user.image}/>
-                    <Card.Title >{name}</Card.Title>
-                    <Card.Title >{city}, {country}</Card.Title>
+                    <img style={{ width: '4rem', float: 'right', border: 'solid .1px lightgray' }} src={owner.image}/>
+                        <Card.Title >{name}</Card.Title>
+                        <Card.Title >{city}, {country}</Card.Title>
                     <Card.Text>
                         {description}
                     </Card.Text>
-                    {/* <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button> */}
-                    <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button>
+                        <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button>
                 </Card.Body>
             </Card>
     
