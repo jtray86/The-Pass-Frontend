@@ -37,31 +37,35 @@ function ProfileInfo({ currentUser, displayUser, userProfileTrips }){
     });
             
     return(
-        <Container>
+        <Container style={{ border: "solid lightgrey .1px", padding: "20px", "border-radius": "5px"}}>
             <Row>
                 <Col sm={4}>
                     <Image src= {image} alt={username} thumbnail />
                     {/* <img src= {image} alt={username} /> */}
                 </Col>
+
                 <Col sm={8}>
                     {/* Add conditional logic for viewing other people's profiles */}
-                    { displayUser.username === currentUser.username ? <Button onClick={handleEditClick} variant="primary" style={{float: "right"}}>Edit Profile</Button> : null}
+                    { displayUser.username === currentUser.username ? <Button onClick={handleEditClick} variant="info" style={{float: "right"}}>Edit Profile</Button> : null}
                 
                 <h4>Name: {name}, {age}</h4>
-                <h5>Gender Presentation: {presentation}</h5>
+                <h6>Gender Presentation: {presentation}</h6>
                 <h6>Username: {username}</h6>
+                <p><hr /></p>
                 <p>Bio: {bio} </p>
                 </Col>
-                <Col sm={12}>
+             
+                <Col sm={12} >
+                    <p><hr /></p>
                     <h5>Activity Level: {activity_level}</h5>
                     <h5>Food Preferances: {food_preferances}</h5>
                     <h5>Travel Style: {travel_style}</h5>
                     <p>Favorate Trip:  {favorite_trip}</p>
-                    </Col>
+                </Col>
             </Row>
             <Row>
                 <Col sm={12}>
-                    <Button onClick={() => history.push("/tripForm")} variant="primary" style={{float: "right"}}>Add a Trip</Button>
+                    <Button onClick={() => history.push("/tripForm")} variant="info" style={{float: "right"}}>Add a Trip</Button>
                 </Col>
                 <Container>
 

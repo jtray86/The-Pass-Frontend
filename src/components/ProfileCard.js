@@ -33,7 +33,7 @@ function ProfileCard({ user }){
                         {bio}
                     </Card.Text>
                     {/* <Button onClick={() => history.push(`/trip/${id}`)} variant="primary">View Full Trip Details</Button> */}
-                    <Button onClick={() => history.push(`/profile/${id}`)} variant="primary">View Profile Details</Button>
+                    <Button onClick={() => history.push(`/profile/${id}`)} variant="info">View Profile Details</Button>
                 </Card.Body>
             </Card>
         </CardColumns>

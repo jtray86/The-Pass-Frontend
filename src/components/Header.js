@@ -2,8 +2,9 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import {useState} from 'react'
+import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
+import logo from '../ThePassLogo-transparent.png';
 
 function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     
@@ -76,29 +77,33 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
         history.push('/');
     }
         
-    const buttonLogic = 
-        currentUser.username.length > 0 ? (
-            <>
-                <Button variant="warning" onClick={handleLogout}>Logout</Button>
-                <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
-                <Button variant="success" onClick={() => history.push(`/trips`)}>Trips</Button>
-            </>
-        ) : (
-            <>
-                <Button variant="danger" onClick={handleSignup}>Signup</Button>
-                <Button variant="success" onClick={handleShow}>Sign-in</Button>
-            </>
-        )
+    // const buttonLogic = 
+    //     currentUser.username.length > 0 ? (
+    //         <style={{ float: "right" }}>
+    //             <Button variant="warning" onClick={handleLogout}>Logout</Button>
+    //             <Button variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+    //             <Button variant="success" onClick={() => history.push(`/trips`)}>Trips</Button>
+    //         </>
+    //     ) : (
+    //         <>
+    //             <Button variant="danger" onClick={handleSignup}>Signup</Button>
+    //             <Button variant="success" onClick={handleShow}>Sign-in</Button>
+    //         </>
+    //     )
     
 
 
     return(
-    <Jumbotron>
-        <h1>Hello, world!</h1>
+    <Jumbotron style={{ "background-image": "linear-gradient(white, powderblue)", "box-shadow": "0 5px 5px -2px lightgrey" }}>
+        <img src={logo} alt="ThePassLogo"/>
             <p>
-                {buttonLogic}
-
-                <Button variant="info" onClick={() => history.push("/")}>Home</Button>
+                <Button style={{ float: "right", background: "pink" }} variant="warning" onClick={handleLogout}>Logout</Button>
+                <Button style={{ float: "right" }} variant="light" onClick={() => history.push(`/profile/${currentUser.id}`)}>Profile</Button>
+                <Button style={{ float: "right" }} variant="secondary" onClick={() => history.push(`/trips`)}>Trips</Button>
+                {/* <Button variant="danger" onClick={handleSignup}>Signup</Button>
+                <br />
+                <Button variant="success" onClick={handleShow}>Sign-in</Button>
+                <Button variant="info" onClick={() => history.push("/")}>Home</Button> */}
                     <Modal
                         show={show}
                         onHide={handleClose}

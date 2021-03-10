@@ -184,6 +184,7 @@ function EditProfile({ currentUser, setCurrentUser }) {
                             Cancel
                         </Button>
                     </Form>
+                    <p></p>
                 </Col>
             </Row>
         </Container>
