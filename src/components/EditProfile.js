@@ -176,11 +176,11 @@ function EditProfile({ currentUser, setCurrentUser }) {
 
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="info" type="submit">
                             Submit
                         </Button>
 
-                        <Button style={{float: "right"}} variant="primary" onClick={() => history.push(`/profile/${id}`)}>
+                        <Button style={{float: "right"}} variant="info" onClick={() => history.push(`/profile/${id}`)}>
                             Cancel
                         </Button>
                     </Form>

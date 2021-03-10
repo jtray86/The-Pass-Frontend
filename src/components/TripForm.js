@@ -134,11 +134,11 @@ function TripForm({ currentUser, handleNewTrip }){
                             <Form.Control name="image" placeholder="https://" value={formData.image} onChange={(e) => onFormChange(e)} />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="info" type="submit">
                             Submit
                         </Button>
 
-                        <Button style={{float: "right"}} variant="primary" onClick={() => history.push(`/profile/${currentUser.id}`)}>
+                        <Button style={{float: "right"}} variant="info" onClick={() => history.push(`/profile/${currentUser.id}`)}>
                             Cancel
                         </Button>
                     </Form>

@@ -125,7 +125,7 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
                                         </p>
                                     ))}
                                     <Modal.Footer>
-                                        <Button variant="primary" type="submit">Log-in</Button>                      
+                                        <Button variant="info" type="submit">Log-in</Button>                      
                                     </Modal.Footer>
                                 </Form>   
                             </Modal.Body>
