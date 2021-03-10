@@ -105,8 +105,9 @@ function Signup({ setCurrentUser }){
                         {error}
                         </p>
                     ))} */}
-                <Button type="submit">Sign-up!</Button>
+                <Button type="submit" variant="info">Sign-up!</Button>
             </Form>
+            
         </Container>
     )
 };

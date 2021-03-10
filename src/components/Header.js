@@ -53,6 +53,7 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
                         history.push(`/profile/${data.user.id}`);
                         setLoginInfo({username:"", password:""});
                         handleClose();
+                        setErrors([]);
                         // callGetOthersUseEffect(data.user);
                     })
                     .catch((data) => {
@@ -78,7 +79,6 @@ function Header({ setCurrentUser, currentUser, callGetOthersUseEffect }){
     }
         
     const buttonLogic = 
-        // console.log(currentUser.username.length)
         currentUser.username.length > 0 ? (
             <div>
                 <Button style={{ margin: "2px", float: "right"}} variant="outline-info" onClick={handleLogout}>Logout</Button>

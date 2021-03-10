@@ -8,7 +8,7 @@ function Home(){
     return(
         <Container>
             <Carousel >
-                <Carousel.Item interval={650} style={{"max-height": "500px"}}>
+                <Carousel.Item interval={1000} style={{"max-height": "500px"}}>
                     <img
                     className="d-block w-100"
                     src={slide1}
@@ -19,7 +19,7 @@ function Home(){
                     <p>Search for trips and connect with other passionate travelers</p>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item interval={650} style={{"max-height": "500px"}} >
+                <Carousel.Item interval={1000} style={{"max-height": "500px"}} >
                     <img
                     className="d-block w-100"
                     src={slide2}
@@ -30,7 +30,7 @@ function Home(){
                     <p>Take advantage of straight-passing privelege and travel with confidence</p>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item interval={650} style={{"max-height": "500px"}}>
+                <Carousel.Item interval={1000} style={{"max-height": "500px"}}>
                     <img
                     className="d-block w-100"
                     src={slide3}

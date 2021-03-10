@@ -141,7 +141,7 @@ function App() {
         </Route>
         
       </Switch>
-      <footer style={{ "text-align": "center", padding: "10px", "margin-top": "15px", "background-color": "rgba(176, 224, 230, 0.2)"}}>
+      <footer style={{ bottom: "0", position: "relative", width: "100%", "text-align": "center", padding: "10px", "margin-top": "30px", "background-color": "rgba(176, 224, 230, 0.2)"}}>
         <span>Contact us at <a href="mailto:thepasstravelco@gmail.com">The Pass Travel Co.</a></span>
       </footer>
     </div>
