@@ -31,29 +31,29 @@ function TripShow({ handleTripDelete, currentUser }) {
 
     if (!isLoaded) return <h2>Loading...</h2>;
 
-    const { name, city, country, start_date, end_date, description, image, user} = trip
+    const { name, city, country, start_date, end_date, description, image, owner} = trip
 
     function handleDeleteClick(e) {
         console.log(e);
         fetch(`http://localhost:3000/trip/${id}`, { method: "DELETE" })
         .then((response) => response.json())
         .then((trip) => handleTripDelete(trip.id))
-        history.push(`/profile/${user.id}`);
+        history.push(`/profile/${owner.id}`);
     }
 
     function handleMatchClick(e) {
         console.log(e);
-        // fetch(`http://localhost:3000/match/${currentUser.id}/${trip.user.id}`)
+        // fetch(`http://localhost:3000/match/${currentowner.id}/${trip.owner.id}`)
         // .then((r) => console.log())
         // .then((data) => {
         //     console.log(data)
         // });
         const templateParams = {
-            to_name: user.name,
+            to_name: owner.name,
             from_name: currentUser.name,
             from_email: currentUser.email,
             from_id: currentUser.id,
-            to_email: user.email,
+            to_email: owner.email,
             trip_name: name };
 
         emailjs.send('service_wasxyvd', 'template_8ov3cts', templateParams)
@@ -69,7 +69,7 @@ function TripShow({ handleTripDelete, currentUser }) {
             <Row>
                 <Col sm={4}>
                     <Image src={image} alt={name} thumbnail />
-                    {/* <img src= {image} alt={username} /> */}
+                    {/* <img src= {image} alt={ownername} /> */}
                 </Col>
 
                 <Col sm={8}>
@@ -83,10 +83,10 @@ function TripShow({ handleTripDelete, currentUser }) {
                     <Button onClick={handleMatchClick} variant="info">Request to Join Trip!</Button>
                 </Col>
                 <Col sm={2}>
-                    <Image src={user.image} alt={user.name} thumbnail />
-                    {/* <img src= {image} alt={username} /> */}
-                    <p>{user.username}</p>
-                    <Button onClick={() => history.push(`/profile/${user.id}`)} variant="primary">View Profile</Button>
+                    <Image src={owner.image} alt={owner.name} thumbnail />
+                    {/* <img src= {image} alt={ownername} /> */}
+                    <p>{owner.username}</p>
+                    <Button onClick={() => history.push(`/profile/${owner.id}`)} variant="primary">View Profile</Button>
                 </Col>
             </Row>
         </Container>
